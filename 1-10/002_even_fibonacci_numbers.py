@@ -5,7 +5,9 @@ By starting with 1 and 2, the first 10 terms will be:
 1, 2, 3, 5, 8, 13, 21, 34, 55, 89
 By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 '''
-upper = 4000000 #upper bound
+upper = 4000000
+#upper = 90
+
 fib_dict = {1:1,2:2}
 
 def even(n):
@@ -22,6 +24,11 @@ def fib(n):
     fib_dict[n] = fib(n-1) + fib(n-2)
   return fib_dict[n]
 
-print(fib(100))
+sum, n = 0,1
+while fib(n) <= upper:
+  if even(fib(n)):
+    sum = sum+fib(n)
+    print(n, sum)
+  n = n + 1
 
 
