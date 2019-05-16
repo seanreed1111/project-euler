@@ -28,7 +28,6 @@ sum, n = 0,1
 while fib(n) <= upper:
   if even(fib(n)):
     sum = sum+fib(n)
-    print(n, sum)
   n = n + 1
 
 
