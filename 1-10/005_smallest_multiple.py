@@ -16,7 +16,7 @@ evenly divisible by all of the numbers from 1 to 20?
 #multiply all keys by their values
 
 from math import sqrt
-from collections import Counter
+from collections import Counter, defaultdict
 
 def find_factors(n): # int :=> [int]
   factors = Counter()
@@ -33,5 +33,21 @@ def find_factors(n): # int :=> [int]
   return factors
 
 if __name__ == '__main__':
-  all_factors = {i:find_factors(i) for i in range(2,21)}
-  print(all_factors)
+  all_factors = [find_factors(i) for i in range(2,21)]
+  flattened_factors = [(key,factor[key])
+                      for factor in all_factors
+                      for key in factor.keys()
+                      ]
+
+  d = defaultdict(list)
+  for k, v in flattened_factors:
+    d[k].append(v)
+
+
+  factor_dict = {k:max(d[k]) for k in d}
+
+  # #now do the sumproduct. could also do reduce
+  ans = 1
+  for key in factor_dict:
+    ans = ans* (key**factor_dict[key])
+  print(ans)
