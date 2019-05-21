@@ -11,8 +11,8 @@ Find the product abc.
 from math import sqrt
 target_sum = 1000
 for c in range(target_sum):
-  for b in range(target_sum):
-    for a in range(target_sum):
+  for b in range(target_sum - c,1,-1):
+    for a in range(target_sum - c - b,1,-1):
       if (a + b + c == 1000) and (a*b*c != 0) and (a**2 + b**2 - c**2)==0:
         print("a,b,c",a,b,c)
         print("a*b*c",a*b*c)
