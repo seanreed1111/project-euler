@@ -58,10 +58,54 @@ grid ='08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08'+\
 
 def str_to_np_array(grid): #string -> np.array[int]
   grid = grid.split(" ")
-  print(len(grid)) #100
   grid = np.array([int(string) for string in grid]).reshape(20,20)
   return grid
 
+def vertical(grid, i_start, j_start):
+  product = grid[i_start,j_start]*grid[i_start+1,j_start] \
+          *grid[i_start+2,j_start]*grid[i_start+3,j_start]
+  locations = [(i_start,j_start),(i_start+1,j_start),(i_start+2,j_start),(i_start+3,j_start)]
+  return product,locations
+
+def horizontal(grid, i_start, j_start):
+  product = grid[i_start,j_start]*grid[i_start,j_start+1] \
+          *grid[i_start,j_start+3]*grid[i_start,j_start+2]
+  locations = [(i_start,j_start),(i_start,j_start+1),(i_start,j_start+2),(i_start,j_start+3)]
+  return product,locations
+
+#this doesn't capture all the diagonals
+def diagonal(grid, i_start, j_start):
+  product = grid[i_start,j_start]*grid[i_start+1,j_start+1] \
+          *grid[i_start+2,j_start+2]*grid[i_start+3,j_start+3]
+  locations = [(i_start,j_start),(i_start+1,j_start+1),(i_start+2,j_start+2),(i_start+3,j_start+3)]
+  return product,locations
+
 if __name__ == '__main__':
   grid = str_to_np_array(grid)
-  print(grid,"\n")
+  for idx, item in enumerate(grid):
+    print(idx, item)
+
+
+  #check four in a left or right in row
+  #check four up or down
+  #check four diagonally
+  #save the four indicies and the product if
+  #it is greater than the previous high
+  size = 4
+  max_product = (0,[])
+
+  for i in range(20-size):
+    for j in range(20-size):
+      h = horizontal(grid,i,j)
+      v = vertical(grid,i,j)
+      d = diagonal(grid,i,j)
+      product = max(h[0],v[0],d[0])
+      if product < max_product[0]: continue
+      if h[0] == product:
+        max_product = h
+      elif v[0] == product:
+        max_product = v
+      else:
+        max_product = d
+
+  print(max_product)
