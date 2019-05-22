@@ -61,6 +61,9 @@ def str_to_np_array(grid): #string -> np.array[int]
   grid = np.array([int(string) for string in grid]).reshape(20,20)
   return grid
 
+def find_max_product(grid, i_start, j_start):
+  pass
+
 def vertical(grid, i_start, j_start):
   product = grid[i_start,j_start]*grid[i_start+1,j_start] \
           *grid[i_start+2,j_start]*grid[i_start+3,j_start]
@@ -79,6 +82,26 @@ def diagonal(grid, i_start, j_start):
           *grid[i_start+2,j_start+2]*grid[i_start+3,j_start+3]
   locations = [(i_start,j_start),(i_start+1,j_start+1),(i_start+2,j_start+2),(i_start+3,j_start+3)]
   return product,locations
+
+#need to cover diagonals when i is increasing and j is decreasing
+#only when there are four+ spaces left
+def diagonal2(grid,i_start,j_start, size=4, grid_size=20):
+  if (i_start < size-1 and j_start < size-1): return (0,[])
+  if (i_start > grid_size-size and j_start > grid_size-size): return (0,[])
+  if i_start > size-1:
+    pass
+  elif j_start > size-1:
+    pass
+#need to cover diagonals when i is decreasing and j is increasing
+#only when there are four+ spaces left
+def diagonal3(grid, i_start, j_start, size=4, grid_size=20):
+  if (i_start < size-1 and j_start < size-1): return (0,[])
+  if (i_start > grid_size-size and j_start > grid_size-size): return (0,[])
+  if i_start < size-1:
+    pass
+  elif j_start < size-1:
+    pass
+
 
 if __name__ == '__main__':
   grid = str_to_np_array(grid)
